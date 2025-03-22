@@ -1,6 +1,6 @@
 import pandas as pd
 import random
-from sklearn.model_selection import train_test_split
+# Removed: from sklearn.model_selection import train_test_split  # Not needed for data generation
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 import warnings
@@ -25,7 +25,7 @@ def generate_vulnerability_data(num_vulnerabilities=1000):
         'Exploitability': [random.uniform(0, 10) for _ in range(num_vulnerabilities)],
         'Impact': [random.uniform(0, 10) for _ in range(num_vulnerabilities)],
         'Attack_Vector': [random.choice(['Network', 'Adjacent Network', 'Local', 'Physical']) for _ in range(num_vulnerabilities)],
-        'Easily Accessible:': [random.choice([True, False]) for _ in range(num_vulnerabilities)],
+        'Easily_Accessible': [random.choice([True, False]) for _ in range(num_vulnerabilities)], # Changed to English
         'Remediation_Difficulty': [random.choice(['Easy', 'Medium', 'Hard']) for _ in range(num_vulnerabilities)],
         'Short_Description': [f"Vulnerability {i} short description" for i in range(1, num_vulnerabilities + 1)],  # Added short description
         'Long_Description': [f"Vulnerability {i} long description. This is a more detailed explanation of the vulnerability." for i in range(1, num_vulnerabilities + 1)],  # Added long description
@@ -68,6 +68,7 @@ def train_risk_assessment_model(df):
     y = df['Exploitable']
 
     # Split data into training and testing sets
+    from sklearn.model_selection import train_test_split
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Choose a model (Random Forest is a good starting point)
